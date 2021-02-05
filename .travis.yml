@@ -12,4 +12,14 @@ before_install:
 script:
   - docker run -e CI=true magicnc7/react npm run test -- -- coverage
 
-after_success: -echo "Test Success"
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-2"
+  app: "docker-react-app"
+  env: "Dockerreactapp-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-2-202254257515"
+  bucket_path: "docker-react-app"
+  on:
+    brach: master
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_KEY
