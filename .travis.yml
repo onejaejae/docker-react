@@ -1,0 +1,15 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start Creating an image with dockerfile"
+  - docker build -t magicnc7/react -f Dockerfile.dev ./
+
+script:
+  - docker run -e CI=true magicnc7/react npm run test -- -- coverage
+
+after_success: -echo "Test Success"
